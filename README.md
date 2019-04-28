@@ -1,9 +1,15 @@
 # LaTeX Report Template
 
+![Badge](https://gitlab.utc.fr/LaTeX-UTC/Templates/latex-thesis-template/badges/master/build.svg)
+
+
 [![Creative Commons License - CC-BY
 4.0](https://i.creativecommons.org/l/by/4.0/88x31.png)](http://creativecommons.org/licenses/by/4.0/)
 
 This is a simple LaTeX template for report and thesis.
+
+> See the document
+[here](https://gitlab.utc.fr/LaTeX-UTC/Templates/latex-thesis-template/builds/artifacts/master/raw/main.pdf?job=building-latex)
 
 Most of the template is an adaptation of [Lilian Besson internship
 report](https://bitbucket.org/lbesson/internship-mva-2016/src/c35130e0f40e9787f8fd4dd333990642cd8875d7/README.md?at=master&fileviewer=file-view-default).
@@ -41,9 +47,12 @@ This way, you can easily share the link so that people can have access to the
 last state of your document on the `master` branch instead of asking it
 everytime.
 
+If you use GitLab, you can fork this repo and activate the sharred runner to
+have this setup.
+
 ## License
 
 This entire project is publicly released under [the Creative Commons
-- Attribution 4.0 International
-- License](http://creativecommons.org/licenses/by/4.0/) (CC BY 4.0).
+— Attribution 4.0
+InternationalLicense](http://creativecommons.org/licenses/by/4.0/) (CC BY 4.0).
 
