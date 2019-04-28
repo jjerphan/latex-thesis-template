@@ -1,0 +1,259 @@
+\documentclass[onecolumn,11pt,a4paper]{report}
+% This first part of the file is called the PREAMBLE. It includes
+% customizations and command definitions. The preamble is everything
+% between \documentclass and \begin{document}.
+
+\usepackage[utf8]{inputenc}        % correct understanding of the input
+\usepackage{lmodern}               % using modern encoding for the output
+\usepackage[T1]{fontenc}           % and correct encoding of the out font
+\usepackage[francais]{babel}
+
+\usepackage{todonotes}
+\usepackage[margin=1.20in,top=1.35in,bottom=1.35in]{geometry}  % set the margins, for one column
+\usepackage{latexsym}              % symbols
+\usepackage{amsmath}               % great math stuff
+\usepackage{amssymb}               % great math symbols
+\usepackage{amsfonts}              % for blackboard bold, etc
+\usepackage{amsthm}                % for theorems, http://tex.stackexchange.com/a/130655
+% XXX for \llbracket and \rrbracket
+\usepackage{stmaryrd}
+% \usepackage{MnSymbol}   % Not important http://tex.stackexchange.com/q/3676/97964
+\usepackage{amsbsy}       % other symbols
+% Experimental command, from http://tex.stackexchange.com/a/51883/97964
+\allowdisplaybreaks
+% bbm package for \mathbbm{1} for indicator functions, http://tex.stackexchange.com/a/26640/97964
+\usepackage{bbm}
+
+
+% Use TikZ figures. They are written in external files tikz_figure_...tex
+\usepackage{tikz}                  % to make drawing with TikZ
+\usetikzlibrary{arrows,positioning,shapes}
+% Enf ot TikZ libraries
+
+\usepackage{enumerate}             % for the \enumerate command
+% \usepackage{fixltx2e}            % LaTeX patches, \textsubscript. XXX Not required after 2015!
+\usepackage{cmap}                  % fix search and cut-and-paste in Acrobat
+\usepackage{color}                 % use colors with, e.g., \textcolor{red}{text}
+\definecolor{darkgray}{rgb}{0.15,0.15,0.15}   % Define a new color rgb(38, 38, 38)
+\definecolor{lightgray}{rgb}{0.94,0.94,0.94}  % Define a new color rgb(239, 239, 239)
+\definecolor{lightlightgray}{rgb}{0.97,0.97,0.97}  % Define a new color rgb(247, 247, 247)
+\definecolor{darkred}{rgb}{0.80,0.00,0.00}    % Define a new color rgb(204, 0, 0)
+\definecolor{darkgreen}{rgb}{0.00,0.70,0.00}    % Define a new color rgb(0,178,0)
+\definecolor{darkblue}{rgb}{0.00,0.00,0.70}    % Define a new color rgb(0,0,178)
+
+% FIXED : Find a better title for the project and the report, change it everywhere below
+
+\usepackage[plainpages=false,pdfcenterwindow=true,
+    pdftoolbar=false,pdfmenubar=false,
+    pdftitle={},
+    pdfauthor={Prénom Nom (Université)},
+    linkcolor=black,citecolor=black,filecolor=black,urlcolor=black]{hyperref}
+     % Allows url with \href{http://truc.machin/ok?r=yes}{myref}
+\usepackage{graphicx}              % to include figures
+\graphicspath{{fig/}}              % directory in which figures are stored
+\usepackage{caption}               % add a caption to figures
+\usepackage{subcaption}            % and allow multi figures
+\usepackage{multicol}              % multi column environment
+\usepackage{float}                 % allow more control to float and figures positions
+\usepackage{framed}                % \framed command to frame an important part
+\usepackage{palatino}              % Use the Palatino font % XXX remove if it is ugly ?
+\usepackage{enumitem}              % For \begin{enumerate}, switch back to itemize if it fails
+\usepackage{wasysym}               % Symbol font http://stackoverflow.com/a/190321/5889533, for \frownie
+\usepackage{marvosym}               % Amother symbol font, for \Heart
+\usepackage{glossaries}            % To create glossaries
+
+% Custom package for the better footnote symbols, http://ctan.org/pkg/footmisc
+\usepackage[bottom]{footmisc}
+% \usepackage[perpage,para,symbol*]{footmisc}
+
+% Tips from http://tex.stackexchange.com/a/205133/97964
+\usepackage[nameinlink]{cleveref}
+% Various theorems, numbered by section (required amsthm)
+
+\theoremstyle{plain}  % Plain style for theorem, defn, lemma, proposition,
+% corollary
+\newtheorem{theorem}{Theorem}[section]
+% \newtheorem{proof}{Proof}  % Already defined by amsthm
+\newtheorem{defn}[theorem]{Définition}
+\newtheorem{attempt}[theorem]{Attempt}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{property}[theorem]{Property}
+\newtheorem{properties}[theorem]{Properties}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{remark}  % Remark style for remark, example, examples
+\newtheorem{remark}[theorem]{Remarque}
+\newtheorem{warning}[theorem]{\textcolor{red}{Warning}}
+\newtheorem{example}[theorem]{Exemple}
+\newtheorem{examples}[theorem]{Exemples}
+
+% DONE Experimental extra left-margin and right-margin for proofs, http://tex.stackexchange.com/a/62057/97964
+\makeatletter
+\renewenvironment{proof}[1][\proofname]{\par
+    \pushQED{\qed}%
+    \normalfont \topsep6\p@\@plus6\p@\relax
+    \list{}{\leftmargin=1.5em
+          \rightmargin=\leftmargin
+          \settowidth{\itemindent}{\itshape#1}%
+          \labelwidth=\itemindent
+          % the following line is not needed with amsart, but might be with other classes
+          \parsep=0pt \listparindent=\parindent
+    }
+    \item[\hskip\labelsep
+        \itshape
+    #1\@addpunct{.}]\ignorespaces
+}{%
+    \popQED\endlist\@endpefalse
+}
+
+\makeatother
+
+% A better leftbar env with colors! Default is black http://tex.stackexchange.com/a/22530/97964
+% use it inside a theorem/lemma/... with thereombar/lemmabar/... color
+\renewenvironment{leftbar}[1][black]{%
+    \def\FrameCommand
+    {%
+        {\color{#1}\vrule width 0.5pt}%
+        \hspace{0pt}%must no space.
+        \fboxsep=\FrameSep\colorbox{lightgray}%
+    }%
+    \vspace*{-11pt}%
+    \MakeFramed{\hsize\hsize\advance\hsize-\width\FrameRestore}%
+    \vspace*{-3pt}%
+}{%
+    \vspace*{-4pt}%
+    \endMakeFramed%
+}
+\newenvironment{lightleftbar}[1][black]{%
+    \def\FrameCommand
+    {%
+        {\color{#1}\vrule width 0.5pt}%
+        \hspace{0pt}%must no space.
+        \fboxsep=\FrameSep\colorbox{lightlightgray}%
+    }%
+    \vspace*{-11pt}%
+    \MakeFramed{\hsize\hsize\advance\hsize-\width\FrameRestore}%
+    \vspace*{-3pt}%
+}{%
+    \vspace*{-4pt}%
+    \endMakeFramed%
+}
+
+% Define colors for the theorem/defb/prop/.. left bar
+\definecolor{theorembar}{rgb}{0.00,0.95,0.00}      % Define a new color rgb(0,242,0)
+\definecolor{defnbar}{rgb}{0.00,0.00,0.95}         % Define a new color rgb(0,0,242)
+\definecolor{propositionbar}{rgb}{0.58,0.00,1.00}  % Define a new color rgb(147,0,255)
+\definecolor{corollarybar}{rgb}{0.00,0.95,0.95}    % Define a new color rgb(0,242,242)
+\definecolor{lemmabar}{rgb}{1.00,0.00,0.78}        % Define a new color rgb(255,0,198)
+\definecolor{warningbar}{rgb}{0.90,0.00,0.00}      % Define a new color rgb(229,0,0)
+\definecolor{propertybar}{rgb}{1.00,1.00,0.00}  % Define a new color rgb(255,255,0)
+\definecolor{remarkbar}{rgb}{1.00,0.53,0.00}       % Define a new color
+
+% FIXED to fix the issue with footnote in a theorem, sol#1 http://tex.stackexchange.com/a/141846/97964 :
+% \footnotemark in the env, then footenotetext{...} after
+
+
+\usepackage{lastpage,fancyhdr}     % customize the headers and footers
+\pagestyle{fancy}
+\fancyhf{} %delete everything
+\renewcommand{\headrulewidth}{0.5pt} % 0.5pt
+\renewcommand{\footrulewidth}{0.3pt} % 0.3pt
+\fancyhead[RE]{\small\nouppercase\leftmark} %even page - chapter title
+\fancyhead[LO]{\small\nouppercase\rightmark} %uneven page - section title
+\fancyhead[LE,RO]{\thepage} %page number on all pages
+
+
+%% Custom commands
+% horizontal lines, as a <hr> tag in HTML
+\providecommand*{\hr}[1][class-arg]{%
+    \hspace*{\fill}\hrulefill\hspace*{\fill}
+    \vskip 0.65\baselineskip
+}
+
+%% Custom mathematical symbols
+% Short symbols
+\newcommand{\e}{\mathrm{e}}
+\renewcommand{\d}{\mathrm{d}}
+% Sets
+\newcommand{\IN}{\mathbb{N}}
+\newcommand{\IZ}{\mathbb{Z}}
+\newcommand{\IR}{\mathbb{R}}
+\newcommand{\IC}{\mathbb{C}}
+\newcommand{\IL}{\mathbf{L}}
+\newcommand{\IS}{\mathbf{S}}
+\newcommand{\Sph}{\mathbb{S}}
+\newcommand{\SO}{\mathrm{SO}}
+% = Symbols
+\newcommand{\eqdef}{\mathop{\mathrel{\stackrel{\smash{\scriptscriptstyle\mathrm{def}}}{=}}}}
+% Functions
+\renewcommand{\arg}{\mathop{\mathrm{arg}}}
+\newcommand{\conj}[1]{\overline{#1}}
+\newcommand{\convol}{\mathop{\ast}}
+\newcommand{\sign}{\mathop{\mathrm{sign}}}
+\newcommand{\sinc}{\mathop{\mathrm{sinc}}}
+\newcommand{\Real}[1]{\mathfrak{R}(#1)}
+\newcommand{\Imag}[1]{\mathfrak{I}(#1)}
+\newcommand{\dom}{\mathrm{Dom}}
+\renewcommand{\ker}{\mathrm{ker}}
+\newcommand{\Span}{\mathrm{Span}}
+\newcommand{\Id}{\mathrm{Id}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\cL}{\mathcal{L}}
+
+% \newcommand{\nice}[1]{#1_{\text{nice}}}
+\newcommand{\nice}[1]{#1_{0}}
+% We use \widehat{f} every where!
+\newcommand{\h}[1]{\widehat{#1}}
+
+\newcommand{\bx}{\mathbf{x}}
+\newcommand{\by}{\mathbf{y}}
+\newcommand{\bz}{\mathbf{z}}
+\newcommand{\bs}{\mathbf{s}}
+\newcommand{\bw}{\boldsymbol{\omega}}
+
+%% Custom text commands
+\newcommand{\eg}{\emph{e.g.},~}
+\newcommand{\ie}{\emph{i.e.},~}
+\renewcommand{\iff}{\emph{iff}~}
+\newcommand{\cf}{cf.~}
+
+%% Class of operators, use it as much as possible!
+\newcommand{\LC}{\textbf{LC}}
+\newcommand{\TI}{\textbf{TI}}
+\newcommand{\LCTI}{\textbf{LC TI}}
+\newcommand{\LSI}{\textbf{LSI}}
+\newcommand{\RI}{\textbf{RI}}
+\newcommand{\LCRI}{\textbf{LC RI}}
+\newcommand{\LCTIRI}{\textbf{LC TI RI}}
+\newcommand{\SI}{$0$-\textbf{SI}}
+\newcommand{\LCSI}{\textbf{LC} $0$-\textbf{SI}}
+\newcommand{\LCTISI}{\textbf{LC TI} $0$-\textbf{SI}}
+\newcommand{\LCTIRISI}{\textbf{LC TI RI} $0$-\textbf{SI}}
+\newcommand{\gSI}{$\gamma$-\textbf{SI}}
+\newcommand{\LCgSI}{\textbf{LC} $\gamma$-\textbf{SI}}
+\newcommand{\LCTIgSI}{\textbf{LC TI} $\gamma$-\textbf{SI}}
+\newcommand{\LCTIRIgSI}{\textbf{LC TI RI} $\gamma$-\textbf{SI}}
+\newcommand{\ST}{\textbf{St}}
+\newcommand{\LCST}{\textbf{LC St}}
+\newcommand{\LCTIST}{\textbf{LC TI St}}
+\newcommand{\LCTIRIST}{\textbf{LC TI RI St}}
+\newcommand{\LCTISIST}{\textbf{LC TI} $0$-\textbf{SI} \textbf{St}}
+\newcommand{\LCTIgSIST}{\textbf{LC TI} $\gamma$-\textbf{SI} \textbf{St}}
+\newcommand{\LCTIRISIST}{\textbf{LC TI RI} $0$-\textbf{SI} \textbf{St}}
+\newcommand{\LCTIRIgSIST}{\textbf{LC TI RI} $\gamma$-\textbf{SI} \textbf{St}}
+
+\newcommand{\fdHT}{\textbf{fdHT}}
+
+% Change the name if the table of content from ``Contents'' to ``Outline''
+\renewcommand{\contentsname}{\hfill{} Outline \hfill{}}  % Put the title centered in the page!
+
+% Change the font size of the title ``Abstract'' for the abstract
+\usepackage{abstract}  % http://www.latex-community.org/forum/viewtopic.php?f=4&t=18791
+\renewcommand{\abstractnamefont}{\normalfont\Large\bfseries}
+
+% How to add a blank page (to have new sections on page of odd numbers, ie on the right if double-sided print)
+\usepackage{afterpage}
+\newcommand{\blankpage}{}
+% http://tex.stackexchange.com/a/36881/97964
+

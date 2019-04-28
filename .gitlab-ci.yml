@@ -1,0 +1,14 @@
+image: thisirs/latex-render
+
+building-latex:
+  stage: build
+  script:
+    - export LANG=fr_FR.UTF-8
+    - export LC_ALL=fr_FR.UTF-8
+    - make main.pdf
+  artifacts:
+    paths:
+      - "*.pdf"
+    expire_in: 2 week
+  tags:
+    - docker

@@ -1,0 +1,22 @@
+#!/bin/bash
+
+commitofhead=`git rev-list -n 1 HEAD`
+t0=`git describe --abbrev=0 2>/dev/null`
+
+if test $? -eq 0
+then
+    commitoftag=`git rev-list -n 1 $t0`
+
+    tagname=$(git tag -l --format '%(contents:subject)' `git describe --abbrev=0`)
+
+    if test $commitofhead = $commitoftag
+    then
+        echo $tagname
+        exit 0
+    fi
+fi
+
+commitdate=`git show -s --format=%ci $commitofhead`
+shortcommitofhead=`printf $commitofhead | sed -r 's/^(........).*/\1/'`
+
+echo "Commit \\texttt{$shortcommitofhead}, \\texttt{$commitdate}"
