@@ -38,6 +38,46 @@ The repo is organised as follows:
      included at compile time ;
  - `scripts/`: a set of custom script to use for the compilation
 
+
+Celle-ci est mise à jour à chaque version nouvelle fusion dans `master`.
+
+## How to include raster in the document LaTeX?
+
+Main take away: **All the figures have to be present in the `figs/` folder
+`figs/` for any type of extensions.**
+
+The supported extensions are:
+ - `.pdf`
+ - `.png`
+ - `.svg`
+ - `.pu` (PlantUML)
+
+### How to include `pdf`'s and `png`'s?
+
+ 1. Put the figure in `figs/`, for instance: `figs/rabbit.pdf`
+ 1. Use it in the document directely without any path nor extension:
+
+    ```latex
+    \includegraphics[width=.5\textwidth]{rabbit}
+    ```
+
+### How to include `.pu`'s?
+
+ 1. Put the figure in `figs/`, for instance: `figs/cactus.pu`
+ 1. Add it to the list of figures to generate as `pdf` in  `Makefile`:
+
+    ```MakeFile
+    GENERATED_PDF_FROM_UML= \
+    ...
+          generated/figs/uml/cactus.pdf \
+    ...
+    ```
+ 1. Use it in the document directely without any path nor extension:
+
+    ```latex
+    \includegraphics[width=.5\textwidth]{citron}
+    ```
+
 ## Gitlab Continuous Integration
 
 `.gitlab-ci.yml` defines a simple CI pipeline : it compiles the document and
