@@ -39,8 +39,6 @@ The repo is organised as follows:
  - `scripts/`: a set of custom script to use for the compilation
 
 
-Celle-ci est mise à jour à chaque version nouvelle fusion dans `master`.
-
 ## How to include raster in the document LaTeX?
 
 Main take away: **All the figures have to be present in the `figs/` folder
